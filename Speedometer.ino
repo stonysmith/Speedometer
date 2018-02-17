@@ -61,8 +61,6 @@ int wait_on(int side){
   int elapsed;
   //Serial.println("Trigger");
   while (digitalRead(side)==cleared) {
-    digitalWrite(10, digitalRead(7));
-    digitalWrite(11, digitalRead(6));
     elapsed=millis()-start;
     if (elapsed > 10000) break; 
     display.showNumberDec(elapsed, false); 
@@ -82,8 +80,7 @@ void loop(){
   int t;
   t=0;
   digitalWrite(13,HIGH);
-  digitalWrite(10, digitalRead(7));
-  digitalWrite(11, digitalRead(6));
+
   if (digitalRead(6)==blocked and digitalRead(7)==cleared) t=wait_on(7);
   if (digitalRead(7)==blocked and digitalRead(6)==cleared) t=wait_on(6);
   digitalWrite(13,LOW);
