@@ -40,10 +40,10 @@ void doMPH(int elapsed){
 
 void setup(){
   display.setBrightness(0x0f);
-  Serial.begin(9600);
+  //Serial.begin(9600);
   pinMode(6, INPUT);     
   pinMode(7, INPUT);
-  Serial.println("Starting");
+  //Serial.println("Starting");
   int i;
   for (i=9;i<13;i++) { 
     pinMode(i, OUTPUT);     
@@ -53,13 +53,13 @@ void setup(){
   display.setSegments(data);
   delay(TEST_DELAY);
   clear();
-  Serial.println("Started");
+  //Serial.println("Started");
 }
 
 int wait_on(int side){
   int start=millis();
   int elapsed;
-  Serial.println("Trigger");
+  //Serial.println("Trigger");
   while (digitalRead(side)==cleared) {
     digitalWrite(10, digitalRead(7));
     digitalWrite(11, digitalRead(6));
@@ -67,13 +67,13 @@ int wait_on(int side){
     if (elapsed > 10000) break; 
     display.showNumberDec(elapsed, false); 
     }
-  Serial.println("Clear");
-  Serial.print("Time=");Serial.println(elapsed,DEC);
+  //Serial.println("Clear");
+  //Serial.print("Time=");Serial.println(elapsed,DEC);
   delay(500);
   doMPH(elapsed);
   delay(4500);
   clear();
-  Serial.println("Waiting");
+  //Serial.println("Waiting");
   return elapsed;
   }
 
@@ -81,16 +81,11 @@ void loop(){
   int k;
   int t;
   t=0;
-  //Serial.println("Loop Start");
   digitalWrite(13,HIGH);
   digitalWrite(10, digitalRead(7));
   digitalWrite(11, digitalRead(6));
   if (digitalRead(6)==blocked and digitalRead(7)==cleared) t=wait_on(7);
   if (digitalRead(7)==blocked and digitalRead(6)==cleared) t=wait_on(6);
-  //if (t>0) display.showNumberDec(t, false); 
   digitalWrite(13,LOW);
-  //delay(4000);
-  //clear();
-  //Serial.println("Loop End");
 }
 
